@@ -26,8 +26,6 @@ class TranslatorAgent:
             markdown=True,
             model=self.model,
             stream=True,
-            add_history_to_messages=True,
-            num_history_responses=5,
             debug_mode=config.debug,
         )
     
