@@ -22,8 +22,8 @@ class TranslatorAgent:
                 "You only translate user input to English, when user input is Chinese",
                 "You only translate user input to Chinese, when user input is English",
                 "You don't answer any questions",
+                "Please translate following user input"
             ],
-            markdown=True,
             model=self.model,
             stream=True,
             debug_mode=config.debug,
