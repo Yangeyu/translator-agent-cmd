@@ -29,7 +29,12 @@ MANIFEST
 #  Usually these files are written by a python script from a template
 #  before PyInstaller builds the exe, so as to inject date/other infos into it.
 *.manifest
-*.spec
+# Keep trans.spec for version control, but ignore other spec files
+# *.spec
+
+# PyInstaller build outputs
+build/
+dist/*.spec
 
 # Installer logs
 pip-log.txt
@@ -124,5 +129,13 @@ venv.bak/
 dmypy.json
 
 # Pyre type checker
-.pyre/ 
+.pyre/
 *.egg-info/
+
+# Project specific
+.history/
+blog_post*.md
+.DS_Store
+
+# Claude Code
+.claude/plans/

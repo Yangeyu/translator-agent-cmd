@@ -4,6 +4,30 @@ An AI-powered command-line translator that converts between English and Chinese.
 
 ## Installation
 
+### Option 1: Standalone Executable (Recommended)
+
+Download the pre-built executable - no Python or dependencies required!
+
+**macOS / Linux**:
+```bash
+# Download
+curl -O https://github.com/yourusername/y-translator/releases/latest/download/trans
+
+# Add execute permission
+chmod +x trans
+
+# (Optional) Install to system path
+sudo mv trans /usr/local/bin/
+```
+
+**Windows**:
+```powershell
+# Download trans.exe from releases
+# Add to PATH or run directly
+```
+
+### Option 2: Install via pip
+
 ```bash
 pip install y-translator-cli
 ```
@@ -66,18 +90,53 @@ cd y-translator
 pip install -e .
 ```
 
-### Building the Package
+### Building the Python Package
 
 ```bash
-# Use build
+# Use the build script
+./build.sh
+
+# Or use build directly
 python -m build
 ```
 
-If building manually, you may want to clean old files first:
+### Building the Standalone Executable
+
+Build a single executable that includes all dependencies:
+
+**macOS / Linux**:
 ```bash
-# Clean before building
+# Install PyInstaller
+pip install pyinstaller
+
+# Build the executable
+./build_exe.sh
+
+# The output will be in dist/trans
+```
+
+**Windows**:
+```batch
+REM Install PyInstaller
+pip install pyinstaller
+
+REM Build the executable
+build_exe.bat
+
+REM The output will be in dist\trans.exe
+```
+
+The standalone executable includes all dependencies and can be distributed as a single file (~100MB).
+
+### Clean Build Artifacts
+
+```bash
+# Clean Python package build files
 rm -rf dist/ build/ *.egg-info/ __pycache__/ .pytest_cache/
 find . -name "*.pyc" -delete
+
+# Clean PyInstaller build files
+rm -rf build/ dist/*.spec
 ```
 
 ## License
