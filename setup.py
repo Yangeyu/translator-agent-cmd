@@ -29,6 +29,8 @@ setup(
         "prompt_toolkit>=3.0.0",
         "agno>=0.1.0",
         "python-dotenv>=0.19.0",
+        "openai",
+        "socksio",
     ],
     entry_points={
         "console_scripts": [
