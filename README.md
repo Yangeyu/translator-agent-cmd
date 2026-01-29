@@ -66,6 +66,15 @@ cd y-translator
 pip install -e .
 ```
 
+### Dependencies
+
+The project depends on the following packages:
+- `prompt_toolkit>=3.0.0` - Interactive command-line interface
+- `agno>=0.1.0` - AI agent framework
+- `python-dotenv>=0.19.0` - Environment variable management
+- `openai` - OpenAI API client
+- `socksio` - SOCKS proxy support
+
 ### Building the Package
 
 ```bash
@@ -78,7 +87,39 @@ If building manually, you may want to clean old files first:
 # Clean before building
 rm -rf dist/ build/ *.egg-info/ __pycache__/ .pytest_cache/
 find . -name "*.pyc" -delete
+python -m build
 ```
+
+### Publishing to PyPI
+
+1. **Get PyPI API Token**:
+   - Login to https://pypi.org
+   - Go to Account settings → API tokens
+   - Create a new API token (recommended: project-scoped, e.g., `y-translator-cli`)
+
+2. **Set Environment Variables** (recommended):
+   ```bash
+   export TWINE_USERNAME="__token__"
+   export TWINE_PASSWORD="pypi-xxxx..."  # Your API token
+   ```
+
+   Or create `~/.pypirc`:
+   ```ini
+   [pypi]
+   username = __token__
+   password = pypi-xxxx...
+   ```
+
+3. **Upload to PyPI**:
+   ```bash
+   twine upload dist/*
+   ```
+
+4. **Version Bump** (if version already exists):
+   PyPI does not allow overwriting existing versions. If you get a "File already exists" error:
+   - Update `__version__` in `translator/__init__.py`
+   - Rebuild: `rm -rf dist/ build/ *.egg-info/ && python -m build`
+   - Upload again: `twine upload dist/*`
 
 ## License
 
