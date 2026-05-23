@@ -3,4 +3,4 @@ Y-Translator CLI
 A command-line translator between English and Chinese powered by AI
 """
 
-__version__ = "0.1.4" 
+__version__ = "0.1.5" 

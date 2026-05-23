@@ -1,7 +1,7 @@
 """AI agent functionality for Y-Translator CLI"""
 
 from agno.agent import Agent
-from agno.models.openai.like import OpenAILike
+from agno.models.dashscope import DashScope
 from .config import Config
 
 class TranslatorAgent:
@@ -10,10 +10,10 @@ class TranslatorAgent:
     def __init__(self, config: Config):
         """Initialize the agent with configuration"""
         self.config = config
-        self.model = OpenAILike(
+        self.model = DashScope(
             id=config.model,
-            base_url=config.api_base,
             api_key=config.api_key,
+            base_url=config.api_base,
         )
         
         self.agent = Agent(
@@ -34,4 +34,9 @@ class TranslatorAgent:
         if not query.strip():
             return
             
-        self.agent.print_response(query, stream=stream) 
+        self.agent.print_response(query, stream=stream)
+    
+    def translate(self, query: str) -> str:
+        """Translate text and return the result as a string"""
+        response = self.agent.run(query, stream=False)
+        return response.content

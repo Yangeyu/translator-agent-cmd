@@ -121,8 +121,16 @@ venv.bak/
 # mypy
 .mypy_cache/
 .dmypy.json
-dmypy.json
+dmcoach.json
 
 # Pyre type checker
 .pyre/ 
 *.egg-info/
+
+# uv
+uv.lock
+.python-version
+
+# uv
+uv.lock
+.python-version

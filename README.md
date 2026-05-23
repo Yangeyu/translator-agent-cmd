@@ -4,8 +4,24 @@ An AI-powered command-line translator that converts between English and Chinese.
 
 ## Installation
 
+### From PyPI (pip)
+
 ```bash
 pip install y-translator-cli
+```
+
+### With uv tool (recommended)
+
+Install from PyPI:
+```bash
+uv tool install y-translator-cli
+```
+
+Or install from source:
+```bash
+git clone https://github.com/yourusername/y-translator.git
+cd y-translator
+uv tool install -e .
 ```
 
 ## Usage
@@ -15,21 +31,25 @@ Start the translator:
 trans
 ```
 
+Or translate text directly:
+```bash
+trans "Hello, world!"
+trans "你好，世界！"
+```
+
 Options:
 - `-h, --help`: Show help message
 - `-v, --version`: Show version information
 - `--verbose`: Enable debug mode
-- `--model MODEL`: Specify AI model to use (default: gpt-4)
-- `--api-key KEY`: Set OpenAI API key
-- `--api-base URL`: Set custom API base URL
+- `--model MODEL`: Specify AI model to use (default: qwen3.6-flash)
+- `--api-key KEY`: Set DashScope API key
 - `-n, --no-stream`: Disable streaming mode
 
 ## Environment Variables
 
 You can set the following environment variables:
-- `AI_API_KEY`: Your OpenAI API key
-- `AI_MODEL`: AI model to use (default: gpt-4)
-- `AI_API_BASE`: Custom API base URL
+- `DASHSCOPE_API_KEY`: Your DashScope API key
+- `AI_MODEL`: AI model to use (default: qwen3.6-flash)
 
 ## Examples
 
@@ -45,7 +65,7 @@ trans --verbose
 
 3. Use a specific model:
 ```bash
-trans --model gpt-3.5-turbo
+trans --model qwen3.6-flash
 ```
 
 4. Disable streaming output:
@@ -62,32 +82,23 @@ trans -n
 git clone https://github.com/yourusername/y-translator.git
 cd y-translator
 
-# Install in development mode
-pip install -e .
+# Install with uv
+uv sync --dev
 ```
 
 ### Dependencies
 
 The project depends on the following packages:
 - `prompt_toolkit>=3.0.0` - Interactive command-line interface
-- `agno>=0.1.0` - AI agent framework
+- `agno>=0.1.0` - AI agent framework (with DashScope provider)
 - `python-dotenv>=0.19.0` - Environment variable management
-- `openai` - OpenAI API client
 - `socksio` - SOCKS proxy support
 
 ### Building the Package
 
 ```bash
-# Use build
-python -m build
-```
-
-If building manually, you may want to clean old files first:
-```bash
-# Clean before building
-rm -rf dist/ build/ *.egg-info/ __pycache__/ .pytest_cache/
-find . -name "*.pyc" -delete
-python -m build
+# Build with uv
+uv build
 ```
 
 ### Publishing to PyPI
@@ -97,29 +108,16 @@ python -m build
    - Go to Account settings → API tokens
    - Create a new API token (recommended: project-scoped, e.g., `y-translator-cli`)
 
-2. **Set Environment Variables** (recommended):
+2. **Upload to PyPI with uv**:
    ```bash
-   export TWINE_USERNAME="__token__"
-   export TWINE_PASSWORD="pypi-xxxx..."  # Your API token
+   uv publish
    ```
 
-   Or create `~/.pypirc`:
-   ```ini
-   [pypi]
-   username = __token__
-   password = pypi-xxxx...
-   ```
-
-3. **Upload to PyPI**:
-   ```bash
-   twine upload dist/*
-   ```
-
-4. **Version Bump** (if version already exists):
+3. **Version Bump** (if version already exists):
    PyPI does not allow overwriting existing versions. If you get a "File already exists" error:
    - Update `__version__` in `translator/__init__.py`
-   - Rebuild: `rm -rf dist/ build/ *.egg-info/ && python -m build`
-   - Upload again: `twine upload dist/*`
+   - Rebuild: `uv build`
+   - Upload again: `uv publish`
 
 ## License
 

@@ -25,23 +25,28 @@ def create_parser() -> argparse.ArgumentParser:
     )
     parser.add_argument(
         "--model",
-        help="AI model to use (default: gpt-4)",
+        help="AI model to use (default: qwen3.6-flash)",
         default=None
     )
     parser.add_argument(
         "--api-key",
-        help="OpenAI API key",
+        help="DashScope API key",
         default=None
     )
     parser.add_argument(
         "--api-base",
-        help="Custom API base URL",
+        help="API base URL (default: https://dashscope.aliyuncs.com/compatible-mode/v1)",
         default=None
     )
     parser.add_argument(
         "-n", "--no-stream",
         action="store_true",
         help="Disable streaming mode"
+    )
+    parser.add_argument(
+        "text",
+        nargs="?",
+        help="Text to translate directly (skips interactive mode)"
     )
     return parser
 
@@ -83,7 +88,11 @@ def main():
     try:
         config = Config.from_args(args)
         agent = TranslatorAgent(config)
-        run_interactive_session(agent, stream=not args.no_stream)
+        
+        if args.text:
+            print(agent.translate(args.text))
+        else:
+            run_interactive_session(agent, stream=not args.no_stream)
     except KeyboardInterrupt:
         print("\n\033[1;32mExiting...\033[0m")
         sys.exit(0)

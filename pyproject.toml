@@ -1,0 +1,51 @@
+[project]
+name = "y-translator-cli"
+dynamic = ["version"]
+description = "An AI-powered English-Chinese translator for the command line"
+readme = "README.md"
+license = "MIT"
+authors = [
+    {name = "Yang", email = "binyang617@gmail.com"},
+]
+requires-python = ">=3.8"
+dependencies = [
+    "prompt_toolkit>=3.0.0",
+    "agno>=0.1.0",
+    "python-dotenv>=0.19.0",
+    "openai",
+    "socksio",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+]
+
+[project.scripts]
+trans = "translator.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/yourusername/translator"
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "build",
+]
+
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.dynamic]
+version = {attr = "translator.__version__"}
+
+[tool.uv]
+dev-dependencies = [
+    "pytest",
+    "build",
+]
